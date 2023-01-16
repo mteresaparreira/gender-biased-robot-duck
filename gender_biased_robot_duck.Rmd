@@ -1,0 +1,262 @@
+---
+title: "Statistical analysis of robot behavior and perception data"
+author: "Maria Teresa Parreira, Sarah Gillet, Katie Winkel, Iolanda Leite"
+date: "2023-01-14"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+R script for 
+
+*M. T. Parreira, S. Gillet, K. Winkle and I. Leite, "How Did We Miss This? A Case Study on Unintended Biases in Robot Social Behavior," 2023 18th ACM/IEEE International Conference on Human-Robot Interaction (HRI), Stockholm, Sweden, 2023*
+
+Data sources in [this repository](https://github.com/mteresaparreira/gender-biased-robot-duck). 
+```{r}
+## Imports
+
+
+if (!require("car")) install.packages("car") 
+if (!require("pastecs")) install.packages("pastecs")
+
+library(tidyverse)
+library(lme4)
+library(car)
+library(pastecs)
+```
+
+
+
+# General Analyses
+
+## Perception of Robot
+
+```{r}
+questionnaires_org <- read_csv("df_postq.csv")
+
+#filter for 2 cond
+questionnaires_org <- questionnaires_org %>% filter(condition != "rubberduck")
+
+questionnaires <- questionnaires_org %>% 
+  mutate(condition = factor(condition, levels=c('naive','datadriven'))) %>%
+  mutate(listening_behavior = as.numeric(listening_behavior))%>%
+  mutate(closeness = as.numeric(closeness))%>%
+  mutate(competence = as.numeric(competence))%>%
+  mutate(warmth = as.numeric(warmth))%>%
+  mutate(discomfort = as.numeric(discomfort))
+
+#checking data normality and homogeneity
+by(questionnaires[, c("listening_behavior","closeness","competence","warmth","discomfort")], questionnaires$condition, stat.desc, basic = FALSE,norm = TRUE)
+
+print("listening_behavior")
+leveneTest(questionnaires$listening_behavior,questionnaires$condition)
+print("closeness")
+leveneTest(questionnaires$closeness,questionnaires$condition)
+print("competence")
+leveneTest(questionnaires$competence,questionnaires$condition)
+print("warmth")
+leveneTest(questionnaires$warmth,questionnaires$condition)
+print("discomfort")
+leveneTest(questionnaires$discomfort,questionnaires$condition)
+
+#perception of listener behavior (from Murray et al. (2021))
+model1 <-aov(listening_behavior ~ condition, data = questionnaires)
+Anova(model1, type="III")
+#plot(model1)
+
+#perception of closeness with robot (from Murray et al. (2021))
+model1 <-aov(closeness ~ condition, data = questionnaires)
+Anova(model1, type="III")
+#plot(model1)
+
+#RoSAS 
+model1 <-aov(competence ~ condition, data = questionnaires)
+Anova(model1, type="III")
+#plot(model1)
+
+#RoSAS (not normal)
+model1<-wilcox.test(warmth ~ condition, data = questionnaires, exact = FALSE,
+correct= FALSE)
+model1
+
+#RoSAS (not normal)
+model1<-wilcox.test(discomfort ~ condition, data = questionnaires, exact = FALSE,
+correct= FALSE)
+model1
+```
+
+# Controlling for Effect of Gender
+
+## Robot Listening Behavior and Robot Perception Analyses
+```{r}
+questionnaires_org <- read_csv('final_robot_logs.csv')
+
+
+#filter for 2 cond
+questionnaires_orgn <- questionnaires_org %>% filter(condition == "naive")
+questionnaires_orgd<- questionnaires_org %>% filter(condition == "datadriven")
+
+questionnairesn <- questionnaires_orgn %>% 
+  mutate(gender = factor(gender)) %>%
+  mutate(talk_ratio = as.numeric(talk_ratio))%>%
+  mutate(listening_behavior = as.numeric(listening_behavior))%>%
+  mutate(closeness = as.numeric(closeness))%>%
+  mutate(competence = as.numeric(competence))%>%
+  mutate(warmth = as.numeric(warmth))%>%
+  mutate(discomfort = as.numeric(discomfort))%>%
+  mutate(bc_freq = as.numeric(bc_freq_all))
+  
+questionnairesd <- questionnaires_orgd %>% 
+  mutate(gender = factor(gender)) %>%
+  mutate(talk_ratio = as.numeric(talk_ratio))%>%
+  mutate(listening_behavior = as.numeric(listening_behavior))%>%
+  mutate(closeness = as.numeric(closeness))%>%
+  mutate(competence = as.numeric(competence))%>%
+  mutate(warmth = as.numeric(warmth))%>%
+  mutate(discomfort = as.numeric(discomfort))%>%
+  mutate(bc_freq = as.numeric(bc_freq_all))
+
+#checking stats per gender (NaiveL condition)
+by(questionnairesn[, c("bc_freq", "talk_ratio","listening_behavior","closeness","competence","warmth","discomfort")], questionnairesn$gender, stat.desc, basic = FALSE,norm = TRUE)
+
+print("listening_behavior")
+leveneTest(questionnairesn$listening_behavior,questionnairesn$gender)
+print("closeness")
+leveneTest(questionnairesn$closeness,questionnairesn$gender)
+print("competence")
+leveneTest(questionnairesn$competence,questionnairesn$gender)
+print("warmth")
+leveneTest(questionnairesn$warmth,questionnairesn$gender)
+print("discomfort")
+leveneTest(questionnairesn$discomfort,questionnairesn$gender)
+print("bc_freq")
+leveneTest(questionnairesn$bc_freq,questionnairesn$gender)
+print("talk_ratio")
+leveneTest(questionnairesn$bc_freq,questionnairesn$gender)
+
+#checking stats per gender (DataL condition)
+
+by(questionnairesd[, c("bc_freq", "talk_ratio","listening_behavior","closeness","competence","warmth","discomfort")], questionnairesd$gender, stat.desc, basic = FALSE,norm = TRUE)
+
+print("listening_behavior")
+leveneTest(questionnairesd$listening_behavior,questionnairesd$gender)
+print("closeness")
+leveneTest(questionnairesd$closeness,questionnairesd$gender)
+print("competence")
+leveneTest(questionnairesd$competence,questionnairesd$gender)
+print("warmth")
+leveneTest(questionnairesd$warmth,questionnairesd$gender)
+print("discomfort")
+leveneTest(questionnairesd$discomfort,questionnairesd$gender)
+print("bc_freq")
+leveneTest(questionnairesd$bc_freq,questionnairesd$gender)
+print("talk_ratio")
+leveneTest(questionnairesd$bc_freq,questionnairesd$gender)
+
+#bc frequency (NaiveL)
+model1 <-aov(bc_freq ~ gender + talk_ratio, data = questionnairesn)
+Anova(model1, type="III")
+#plot(model1)
+
+#bc frequency (DataL)
+model1 <-aov(bc_freq ~ gender + talk_ratio, data = questionnairesd)
+Anova(model1, type="III")
+
+#ROBOT PERCEPTION (NaiveL) - listening behavior (from Murray et al. (2021))
+model1 <-aov(listening_behavior ~ gender + bc_freq, data = questionnairesn)
+Anova(model1, type="III")
+#plot(model1)
+
+#ROBOT PERCEPTION (DataL) - listening behavior (from Murray et al. (2021))
+model1 <-aov(listening_behavior ~ gender + bc_freq, data = questionnairesd)
+Anova(model1, type="III")
+#plot(model1)
+
+#ROBOT PERCEPTION (NaiveL) - closeness (from Murray et al. (2021))
+model1 <-aov(closeness ~ gender + bc_freq, data = questionnairesn)
+Anova(model1, type="III")
+#plot(model1)
+
+#ROBOT PERCEPTION (DataL) - closeness (from Murray et al. (2021))
+model1 <-aov(closeness ~ gender + bc_freq, data = questionnairesd)
+Anova(model1, type="III")
+#plot(model1)
+
+#ROBOT PERCEPTION (NaiveL) - Competence (from RoSAS)
+model1 <-aov(competence ~ gender + bc_freq, data = questionnairesn)
+Anova(model1, type="III")
+#plot(model1)
+
+#ROBOT PERCEPTION (DataL) - Competence (from RoSAS)
+model1 <-aov(competence ~ gender + bc_freq, data = questionnairesd)
+Anova(model1, type="III")
+#plot(model1)
+
+#ROBOT PERCEPTION (NaiveL) - Warmth (from RoSAS)
+model1 <-aov(warmth ~ gender + bc_freq, data = questionnairesn)
+Anova(model1, type="III")
+#plot(model1)
+
+#ROBOT PERCEPTION (DataL) - Warmth (from RoSAS)
+model1 <-aov(warmth ~ gender + bc_freq, data = questionnairesd)
+Anova(model1, type="III")
+#plot(model1)
+
+#ROBOT PERCEPTION (NaiveL) - Discomfort (from RoSAS)
+model1 <-aov(discomfort ~ gender + bc_freq, data = questionnairesn)
+Anova(model1, type="III")
+#plot(model1)
+
+#ROBOT PERCEPTION (DataL) - Discomfort (from RoSAS)
+model1 <-aov(discomfort ~ gender + bc_freq, data = questionnairesd)
+Anova(model1, type="III")
+#plot(model1)
+```
+
+## NaiveL - Analysis of Pitch Distribution
+```{r}
+questionnaires_org <- read_csv("pitchesnewdf.csv")
+
+questionnaires <- questionnaires_org %>% 
+  mutate(gender = factor(gender))%>%
+  mutate(rel_below_pitch = as.numeric(rel_below_pitch)) %>%
+  mutate(below_avg_size = as.numeric(below_avg_size))
+
+by(questionnaires[, c("rel_below_pitch","below_avg_size")], questionnaires$gender, stat.desc, basic = FALSE,norm = TRUE)
+
+print("rel_below_pitch")
+leveneTest(questionnaires$rel_below_pitch,questionnaires$gender)
+print("below_avgsize")
+leveneTest(questionnaires$below_avg_size,questionnaires$gender)
+
+#samples below 26th percentile (LowPitch)
+model1<-wilcox.test(rel_below_pitch ~ gender, data = questionnaires, exact = FALSE,
+correct= FALSE)
+model1
+
+#consecutive duration below 26th percentile (LowPitchDuration)
+model1<-wilcox.test(below_avg_size ~ gender, data = questionnaires, exact = FALSE,
+correct= FALSE)
+model1
+```
+
+## DataL - Principal Component Analysis of State Space
+```{r}
+questionnaires_org <- read_csv("pitchescompsdf.csv")
+
+questionnaires <- questionnaires_org %>% 
+  mutate(gender = factor(gender))%>%
+  mutate(pc0 = as.numeric(PC0)) %>%
+  mutate(pc1 = as.numeric(PC1))
+
+#PC0
+model1 <-aov(pc0 ~ gender, data = questionnaires)
+Anova(model1, type="III")
+#plot(model1)
+
+#PC1
+model1 <-aov(pc1 ~ gender, data = questionnaires)
+Anova(model1, type="III")
+#plot(model1)
+
+```
