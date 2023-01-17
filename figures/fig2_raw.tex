@@ -1,0 +1,430 @@
+% This file was created with tikzplotlib v0.9.12.
+
+
+
+
+
+
+
+\begin{tikzpicture}
+
+%\definecolor{color0}{rgb}{0.392156862745098,0.584313725490196,0.929411764705882}
+%\definecolor{color1}{rgb}{0.803921568627451,0.36078431372549,0.36078431372549}
+%\definecolor{color2}{rgb}{0.254901960784314,0.411764705882353,0.882352941176471}
+%\definecolor{color3}{rgb}{0.941176470588235,0.501960784313725,0.501960784313725}
+%\definecolor{color4}{rgb}{0.698039215686274,0.133333333333333,0.133333333333333}
+
+\definecolor{color0}{rgb}{0.34, 0.01, 0.1}
+\definecolor{color1}{rgb}{0.91, 0.59, 0.48}
+\definecolor{color2}{rgb}{0.53, 0.15, 0.34}
+
+\definecolor{color5}{rgb}{0.18, 0.31, 0.31}
+\definecolor{color3}{rgb}{0.09, 0.45, 0.27}
+\definecolor{color4}{rgb}{0.56, 0.74, 0.56}
+
+\definecolor{color2}{rgb}{0.45, 0.31, 0.59} %new color 0
+\definecolor{color0}{rgb}{0.59, 0.44, 0.84} %new color1
+\definecolor{color1}{rgb}{0.55, 0.0, 0.55} %new color 2
+
+\begin{groupplot}[group style={group size=1 by 2},width=0.4\textwidth, height=0.25\textwidth, legend style={draw=none,nodes={scale=0.8, transform shape}},]
+\nextgroupplot[
+axis line style={white!15!black},
+tick align=outside,
+tick pos=left,
+x grid style={white!80!black},
+xmin=42.75, xmax=422.25,
+xtick style={color=white!15!black},
+y grid style={white!80!black},
+ylabel={BCs per minute (LogicQ)},
+ymin=-0.262903225806452, ymax=5.52096774193548,
+ytick style={color=white!15!black},
+]
+\addplot [very thick, color1, opacity=0.8, mark=*, mark size=1.8, mark options={solid,draw=white!10!black,line width=0.4pt}] % no marks, dotted,line width=2.5pt]
+table {% %%%color0
+60 2.24137931034483
+75 1.58620689655172
+90 1.44827586206897
+105 1.72413793103448
+120 1.79310344827586
+135 1.89655172413793
+150 2.10344827586207
+165 1.6551724137931
+180 1.51724137931034
+195 1.68965517241379
+210 1.86206896551724
+225 1.75862068965517
+240 1.93103448275862
+255 1.68965517241379
+270 1.68965517241379
+285 1.96551724137931
+300 1.89655172413793
+315 1.72413793103448
+330 1.51724137931034
+345 1.27586206896552
+360 1.24137931034483
+375 1.55172413793103
+390 1.75862068965517
+405 1.6551724137931
+};
+\addplot [very thick, color4, opacity=0.8, mark=*, mark size=1.8, mark options={solid,draw=white!10!black,line width=0.4pt}]
+table {%%%%%%color3
+60 0
+75 0
+90 0
+105 0
+120 0
+135 0
+150 0
+165 0
+180 0
+195 0
+210 0
+225 0
+240 0
+255 0
+270 0
+285 0
+300 0
+315 0
+330 0
+345 0
+360 0
+375 0
+390 0
+405 0
+};
+\addplot [very thick, color1, opacity=0.8, mark=square*, mark size=1.8, mark options={solid,draw=white!10!black,line width=0.4pt}] %, no marks, solid,line width=2.5pt]
+table {%%%%%color1
+60 2.37931034482759
+75 1.58620689655172
+90 1.44827586206897
+105 1.72413793103448
+120 1.79310344827586
+135 1.86206896551724
+150 2.03448275862069
+165 1.89655172413793
+180 1.79310344827586
+195 1.96551724137931
+210 1.86206896551724
+225 1.96551724137931
+240 2.3448275862069
+255 2.27586206896552
+270 2.58620689655172
+285 2.37931034482759
+300 1.93103448275862
+315 1.89655172413793
+330 1.75862068965517
+345 1.51724137931034
+360 1.72413793103448
+375 1.55172413793103
+390 1.3448275862069
+405 1.44827586206897
+};
+\addplot [very thick, color4, opacity=0.8, mark=square*, mark size=1.8, mark options={solid,draw=white!10!black,line width=0.4pt}]
+table {%
+60 4.25806451612903
+75 4.19354838709677
+90 4.25806451612903
+105 4.38709677419355
+120 4.25806451612903
+135 4
+150 3.25806451612903
+165 2.93548387096774
+180 3.12903225806452
+195 3.64516129032258
+210 4.38709677419355
+225 5.25806451612903
+240 5.12903225806452
+255 5.09677419354839
+270 4.41935483870968
+285 4.41935483870968
+300 4.41935483870968
+315 4.06451612903226
+330 4.54838709677419
+345 3.80645161290323
+360 4.09677419354839
+375 4.06451612903226
+390 4.09677419354839
+405 4.38709677419355
+};
+%\addplot [very thick, color2, opacity=0.8, mark=diamond*, mark size=1.8, mark options={solid,draw=white!10!black,line width=0.4pt}]
+%%blue!80.3921568627451!black
+%table {%
+%60 0
+%75 0
+%90 0
+%105 0
+%120 0
+%135 0
+%150 0
+%165 0
+%180 0
+%195 0
+%210 0
+%225 0
+%240 0
+%255 0
+%270 0
+%285 0
+%300 0
+%315 0
+%330 0
+%345 0
+%360 0
+%375 0
+%390 0
+%405 0
+%};
+\addplot [very thick, color4, opacity=0.8, mark=diamond*, mark size=1.8, mark options={solid,draw=white!10!black,line width=0.4pt}]
+table {%%%%color5
+60 0.258064516129032
+75 0.258064516129032
+90 0.193548387096774
+105 0.387096774193548
+120 0.32258064516129
+135 0.387096774193548
+150 0.451612903225806
+165 0.290322580645161
+180 0.290322580645161
+195 0.258064516129032
+210 0.419354838709677
+225 0.419354838709677
+240 0.419354838709677
+255 0.548387096774194
+270 0.483870967741935
+285 0.612903225806452
+300 0.548387096774194
+315 0.387096774193548
+330 0.225806451612903
+345 0.290322580645161
+360 0.290322580645161
+375 0.451612903225806
+390 0.419354838709677
+405 0.32258064516129
+};
+\vspace{-0.9cm}
+\nextgroupplot[
+axis line style={white!15!black},
+legend cell align={left},
+legend style={
+  fill opacity=0.8,
+  %draw opacity=1,
+  text opacity=1,
+  at={(0.91,0.5)},
+  anchor=east,
+  draw=none,%white!80!black,
+  legend style={at={($(0,0)+(1cm,1cm)$)},legend columns=4,fill=none,%draw=black,
+  anchor=center,align=center},
+            legend to name=fred
+},
+tick align=outside,
+tick pos=left,
+x grid style={white!80!black},
+xlabel={Time (s)},
+xmin=42.75, xmax=422.25,
+xtick style={color=white!15!black},
+y grid style={white!80!black},
+ylabel={BCs per minute (NASA)},
+ymin=-0.232692307692308, ymax=4.88653846153846,
+ytick style={color=white!15!black}
+]
+
+\addplot [very thick, color1, opacity=0.8, mark=*, mark size=1.8, mark options={solid,draw=white!10!black,line width=0.4pt}, forget plot]
+table {%color0
+60 3.13793103448276
+75 2.27586206896552
+90 2.13793103448276
+105 2.24137931034483
+120 2.06896551724138
+135 1.96551724137931
+150 1.79310344827586
+165 1.79310344827586
+180 1.6551724137931
+195 1.60714285714286
+210 1.7037037037037
+225 1.52
+240 1.66666666666667
+255 1.91666666666667
+270 1.69565217391304
+285 1.45454545454545
+300 1.33333333333333
+315 1.16666666666667
+330 1
+345 1.0625
+360 0.9375
+375 1
+390 0.928571428571429
+405 0.846153846153846
+};
+
+\addplot [very thick, color4, opacity=0.8, mark=*, mark size=1.8, mark options={solid,draw=white!10!black,line width=0.4pt}]
+table {%color3
+60 0
+75 0
+90 0
+105 0
+120 0.032258064516129
+135 0.032258064516129
+150 0.032258064516129
+165 0
+180 0
+195 0
+210 0
+225 0
+240 0
+255 0
+270 0
+285 0
+300 0
+315 0
+330 0
+345 0
+360 0
+375 0
+390 0
+405 0
+};
+\addlegendentry{vocal BC}
+\addplot [very thick, color1, opacity=0.8, mark=square*, mark size=1.8, mark options={solid,draw=white!10!black,line width=0.4pt}, forget plot]
+table {%
+60 3.13793103448276
+75 2.51724137931034
+90 2.24137931034483
+105 1.82758620689655
+120 1.68965517241379
+135 1.51724137931034
+150 1.3448275862069
+165 1.24137931034483
+180 1.20689655172414
+195 1.14285714285714
+210 1.2962962962963
+225 1.64
+240 1.75
+255 1.70833333333333
+270 1.60869565217391
+285 1.36363636363636
+300 1.04761904761905
+315 1.05555555555556
+330 1.05555555555556
+345 1.125
+360 1.1875
+375 0.933333333333333
+390 0.928571428571429
+405 1
+};
+%\addlegendentry{non-vocal BC}
+\addplot [very thick, color4, opacity=0.8, mark=square*, mark size=1.8, mark options={solid,draw=white!10!black,line width=0.4pt}]
+table {%
+60 3.67741935483871
+75 4.06451612903226
+90 3.96774193548387
+105 4.25806451612903
+120 4.12903225806452
+135 3.83870967741935
+150 4
+165 4
+180 4.25925925925926
+195 4.65384615384615
+210 3.70833333333333
+225 3.5
+240 3.5
+255 3.52380952380952
+270 3.8
+285 3.94736842105263
+300 4
+315 4.11764705882353
+330 4.23529411764706
+345 3.6875
+360 4.13333333333333
+375 4.46153846153846
+390 4
+405 4.27272727272727
+};
+\addlegendentry{non-vocal BC}
+%\addplot [very thick, color2, opacity=0.8, mark=diamond*, mark size=1.8, mark options={solid,draw=white!10!black,line width=0.4pt}, forget plot]
+%table {%
+%60 0
+%75 0
+%90 0
+%105 0
+%120 0
+%135 0
+%150 0
+%165 0
+%180 0
+%195 0
+%210 0
+%225 0
+%240 0
+%255 0
+%270 0
+%285 0
+%300 0
+%315 0
+%330 0
+%345 0
+%360 0
+%375 0
+%390 0
+%405 0
+%};
+%%%%%\addlegendentry{both}
+
+\addplot [very thick, color4, opacity=0.8, mark=diamond*, mark size=1.8, mark options={solid,draw=white!10!black,line width=0.4pt}]
+table {%color5
+60 0.483870967741935
+75 0.516129032258065
+90 0.451612903225806
+105 0.451612903225806
+120 0.387096774193548
+135 0.451612903225806
+150 0.645161290322581
+165 0.758620689655172
+180 0.777777777777778
+195 0.615384615384615
+210 0.333333333333333
+225 0.25
+240 0.272727272727273
+255 0.285714285714286
+270 0.45
+285 0.421052631578947
+300 0.555555555555556
+315 0.588235294117647
+330 0.647058823529412
+345 0.75
+360 0.6
+375 0.538461538461538
+390 0.25
+405 0.636363636363636
+};
+\addlegendentry{both}
+
+\coordinate (c1) at (rel axis cs:0.5,0.5);
+\coordinate (c2) at (rel axis cs:0.85,0.85);
+\end{groupplot}
+\node[below] at (c1 |- current bounding box.south)
+      {\pgfplotslegendfromname{fred}};
+
+      
+\begin{customlegend}[legend columns=-1, 
+legend cell align=center, %<= to align cells
+legend entries={ % <= in the following there are the entries
+NaïveL,
+DataL
+},
+legend style={draw=none,column sep=1ex,at={(c2 |- current bounding box.south)}}]%, font=\footnotesize}] %%%at={(4.5,3.5)},font=\footnotesize}] % <= to define position and font legend
+% the following are the "images" and numbers in the legend
+    %%%%%\addlegendimage{stealth-stealth,red,opacity=0.4}
+    %%%%\addlegendimage{mark=*, color=color1}%, mark size=2.2, }
+    %%%%%%%%%\addlegendimage{mark=ball,ball color=green,draw=white}
+
+    
+    \addlegendimage{area legend,color1,fill = color1} %color2
+    \addlegendimage{area legend,color4,fill=color4}
+\end{customlegend}
+%\node[below] at (c1 |- current bounding box.south)
+%      {\pgfplotslegendfromname{fred}};
+      
+
+
+\end{tikzpicture}
